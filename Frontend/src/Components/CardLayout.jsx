@@ -13,6 +13,15 @@ const CardLayout = () => {
   const loaderRef = useRef(null);
   const cardRefs = useRef([]);
 
+  useEffect(() => {
+    PropertyData.forEach((property) => {
+      property.images.forEach((imageUrl) => {
+        const img = new Image();
+        img.src = imageUrl;
+      });
+    });
+  }, []);
+
   const applyFilters = (filters) => {
     setIsFiltering(true);
     let result = PropertyData;
