@@ -6,7 +6,7 @@ import Rent from "../Pages/Rent";
 import Favourites from "../Pages/Favourites";
 import Contactus from "../Pages/Contactus";
 import PropertyDetails from "../Pages/PropertyDetails";
-import Commercial from "../Pages/Commercial";
+import Sell from "../Pages/Sell";
 
 const Navroutes = () => {
   return (
@@ -16,7 +16,7 @@ const Navroutes = () => {
       <Route path="/rent" element={<Rent />} />
       <Route path="/favourites" element={<Favourites />} />
       <Route path="/contact-us" element={<Contactus />} />
-      <Route path="/commercial" element={<Commercial />} />
+      <Route path="/sell" element={<Sell />} />
       <Route path="/property/:id" element={<PropertyDetails />} />
     </Routes>
   );

@@ -12,8 +12,8 @@ export const Navlinks = [
     link: "/rent",
   },
   {
-    name: "Commercial",
-    link: "/commercial",
+    name: "Sell",
+    link: "/sell",
   },
   {
     name: "Favourites",

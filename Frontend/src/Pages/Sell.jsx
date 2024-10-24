@@ -1,7 +1,7 @@
 import React from "react";
 
-const Commercial = () => {
+const Sell = () => {
   return <div></div>;
 };
 
-export default Commercial;
+export default Sell;

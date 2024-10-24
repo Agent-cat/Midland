@@ -17,6 +17,7 @@ const CardLayout = () => {
     PropertyData.forEach((property) => {
       property.images.forEach((imageUrl) => {
         const img = new Image();
+
         img.src = imageUrl;
       });
     });
