@@ -41,6 +41,9 @@ const propertySchema = new mongoose.Schema({
   overview: { type: String },
   amenities: { type: [String] },
   locationMap: { type: String },
+  bedroom: { type: Number, default: 0 },
+  bathroom: { type: Number, default: 0 },
+  kitchen: { type: Number, default: 0 },
 });
 
 const Property = mongoose.model("Property", propertySchema);

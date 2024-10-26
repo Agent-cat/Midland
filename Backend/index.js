@@ -5,6 +5,7 @@ const cors = require("cors");
 const connectDB = require("./Database/db.js");
 const propertyRoutes = require("./Routes/property.routes.js");
 const authRoutes = require("./Routes/auth.routes.js");
+const feedbackRoutes = require("./Routes/feedback.routes.js");
 connectDB();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -15,6 +16,7 @@ app.use(
 );
 app.use("/api/properties", propertyRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/feedback", feedbackRoutes);
 app.get("/", (req, res) => {
   res.send("Hello World");
 });

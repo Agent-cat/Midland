@@ -64,4 +64,9 @@ const signin = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { signup, signin };
+const getusers = asyncHandler(async (req, res) => {
+  const users = await User.find();
+  res.status(200).json(users);
+});
+
+module.exports = { signup, signin, getusers };

@@ -1,41 +1,88 @@
 const Property = require("../Models/properties.model");
+const asyncHandler = require("express-async-handler");
 
-const postproperty = async (req, res) => {
-  // Create a new property
-  try {
-    const existingProperty = await Property.findOne({
-      name: req.body.name,
-      location: req.body.location,
-      address: req.body.address,
-    });
-    if (existingProperty) {
-      return res.status(409).json({ message: "Property already exists" });
-    }
-    const highestProperty = await Property.findOne().sort("-id").exec();
-    const nextId = highestProperty ? parseInt(highestProperty.id) + 1 : 1;
-    const propertyData = {
-      ...req.body,
-      id: nextId.toString(),
-    };
-    const property = new Property(propertyData);
-    const savedProperty = await property.save();
+const postproperty = asyncHandler(async (req, res) => {
+  const existingProperty = await Property.findOne({
+    name: req.body.name,
+    location: req.body.location,
+    address: req.body.address,
+  });
+
+  if (existingProperty) {
+    res.status(409);
+    throw new Error("Property already exists");
+  }
+
+  const highestProperty = await Property.findOne().sort("-id").exec();
+  const nextId = highestProperty ? parseInt(highestProperty.id) + 1 : 1;
+
+  const propertyData = {
+    ...req.body,
+    id: nextId,
+  };
+
+  const property = await Property.create(propertyData);
+
+  if (property) {
     res.status(201).json({
       message: "Property created successfully",
-      property: savedProperty,
+      property: property,
     });
-  } catch (err) {
-    res.status(400).json({ message: err.message });
+  } else {
+    res.status(400);
+    throw new Error("Invalid property data");
   }
-};
+});
 
-const getallproperties = async (req, res) => {
-  // Get all properties
-  try {
-    const properties = await Property.find();
-    res.status(200).json(properties);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+const getallproperties = asyncHandler(async (req, res) => {
+  const properties = await Property.find();
+  res.status(200).json(properties);
+});
+
+const updateproperty = asyncHandler(async (req, res) => {
+  const property = await Property.findById(req.params.id);
+
+  if (!property) {
+    res.status(404);
+    throw new Error("Property not found");
   }
-};
 
-module.exports = { postproperty, getallproperties };
+  const updatedProperty = await Property.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+
+  res.status(200).json({
+    message: "Property updated successfully",
+    property: updatedProperty,
+  });
+});
+
+const deleteproperty = asyncHandler(async (req, res) => {
+  const property = await Property.findById(req.params.id);
+
+  if (!property) {
+    res.status(404);
+    throw new Error("Property not found");
+  }
+
+  await property.remove();
+  res.status(200).json({ message: "Property deleted successfully" });
+});
+
+const getpropertybyid = asyncHandler(async (req, res) => {
+  const property = await Property.findById(req.params.id);
+  res.status(200).json(property);
+});
+
+module.exports = {
+  postproperty,
+  getallproperties,
+  updateproperty,
+  deleteproperty,
+  getpropertybyid,
+};
