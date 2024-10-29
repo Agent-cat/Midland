@@ -97,20 +97,20 @@ const Sell = ({ refreshProperties }) => {
   };
 
   return (
-    <div className="container mx-auto mt-24 p-8 bg-gray-50 rounded-lg shadow-md">
-      <h1 className="text-3xl font-bold mb-8 text-center text-red-500 font-['Onest',sans-serif]">
+    <div className="container mx-auto mt-24 p-8 bg-gradient-to-br from-gray-50 to-red-50 rounded-xl shadow-lg">
+      <h1 className="text-4xl font-extrabold mb-12 text-center text-red-600 font-['Onest',sans-serif] animate-fade-in">
         List Your Property
       </h1>
-      <form onSubmit={handleSubmit} className="max-w-4xl mx-auto space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <form onSubmit={handleSubmit} className="max-w-4xl mx-auto space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Basic Information */}
-          <div className="bg-white p-6 rounded-lg shadow-sm">
-            <h2 className="text-xl font-semibold mb-4 text-red-500">
+          <div className="bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300">
+            <h2 className="text-2xl font-bold mb-6 text-red-600 border-b-2 border-red-200 pb-2">
               Basic Information
             </h2>
-            <div className="space-y-4">
+            <div className="space-y-5">
               <div>
-                <label className="block mb-1 text-gray-700">
+                <label className="block mb-2 text-gray-800 font-semibold">
                   Property Name*
                 </label>
                 <input
@@ -118,20 +118,20 @@ const Sell = ({ refreshProperties }) => {
                   name="name"
                   value={formData.name}
                   onChange={handleInputChange}
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-red-200 focus:border-red-400"
+                  className="w-full p-3 border-2 rounded-lg focus:ring-2 focus:ring-red-300 focus:border-red-500 transition-all duration-300"
                   required
                 />
               </div>
 
               <div>
-                <label className="block mb-1 text-gray-700">
+                <label className="block mb-2 text-gray-800 font-semibold">
                   Property Type*
                 </label>
                 <select
                   name="type"
                   value={formData.type}
                   onChange={handleInputChange}
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-red-200 focus:border-red-400"
+                  className="w-full p-3 border-2 rounded-lg focus:ring-2 focus:ring-red-300 focus:border-red-500 transition-all duration-300"
                   required
                 >
                   <option value="flats">Flats</option>
@@ -145,24 +145,28 @@ const Sell = ({ refreshProperties }) => {
               </div>
 
               <div>
-                <label className="block mb-1 text-gray-700">Square Feet*</label>
+                <label className="block mb-2 text-gray-800 font-semibold">
+                  Square Feet*
+                </label>
                 <input
                   type="number"
                   name="sqft"
                   value={formData.sqft}
                   onChange={handleInputChange}
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-red-200 focus:border-red-400"
+                  className="w-full p-3 border-2 rounded-lg focus:ring-2 focus:ring-red-300 focus:border-red-500 transition-all duration-300"
                   required
                 />
               </div>
 
               <div>
-                <label className="block mb-1 text-gray-700">Location*</label>
+                <label className="block mb-2 text-gray-800 font-semibold">
+                  Location*
+                </label>
                 <select
                   name="location"
                   value={formData.location}
                   onChange={handleInputChange}
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-red-200 focus:border-red-400"
+                  className="w-full p-3 border-2 rounded-lg focus:ring-2 focus:ring-red-300 focus:border-red-500 transition-all duration-300"
                   required
                 >
                   <option value="vijayawada">Vijayawada</option>
@@ -174,44 +178,48 @@ const Sell = ({ refreshProperties }) => {
           </div>
 
           {/* Property Details */}
-          <div className="bg-white p-6 rounded-lg shadow-sm">
-            <h2 className="text-xl font-semibold mb-4 text-red-500">
+          <div className="bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300">
+            <h2 className="text-2xl font-bold mb-6 text-red-600 border-b-2 border-red-200 pb-2">
               Property Details
             </h2>
-            <div className="space-y-4">
+            <div className="space-y-5">
               <div>
-                <label className="block mb-1 text-gray-700">BHK*</label>
+                <label className="block mb-2 text-gray-800 font-semibold">
+                  BHK*
+                </label>
                 <input
                   type="number"
                   name="bhk"
                   value={formData.bhk}
                   onChange={handleInputChange}
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-red-200 focus:border-red-400"
+                  className="w-full p-3 border-2 rounded-lg focus:ring-2 focus:ring-red-300 focus:border-red-500 transition-all duration-300"
                   required
                 />
               </div>
 
               <div>
-                <label className="block mb-1 text-gray-700">Owner Name*</label>
+                <label className="block mb-2 text-gray-800 font-semibold">
+                  Owner Name*
+                </label>
                 <input
                   type="text"
                   name="ownerName"
                   value={formData.ownerName}
                   onChange={handleInputChange}
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-red-200 focus:border-red-400"
+                  className="w-full p-3 border-2 rounded-lg focus:ring-2 focus:ring-red-300 focus:border-red-500 transition-all duration-300"
                   required
                 />
               </div>
 
               <div>
-                <label className="block mb-1 text-gray-700">
+                <label className="block mb-2 text-gray-800 font-semibold">
                   Listing Type*
                 </label>
                 <select
                   name="saleOrRent"
                   value={formData.saleOrRent}
                   onChange={handleInputChange}
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-red-200 focus:border-red-400"
+                  className="w-full p-3 border-2 rounded-lg focus:ring-2 focus:ring-red-300 focus:border-red-500 transition-all duration-300"
                   required
                 >
                   <option value="sale">Sale</option>
@@ -220,13 +228,15 @@ const Sell = ({ refreshProperties }) => {
               </div>
 
               <div>
-                <label className="block mb-1 text-gray-700">Price*</label>
+                <label className="block mb-2 text-gray-800 font-semibold">
+                  Price*
+                </label>
                 <input
                   type="number"
                   name="price"
                   value={formData.price}
                   onChange={handleInputChange}
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-red-200 focus:border-red-400"
+                  className="w-full p-3 border-2 rounded-lg focus:ring-2 focus:ring-red-300 focus:border-red-500 transition-all duration-300"
                   required
                 />
               </div>
@@ -234,43 +244,49 @@ const Sell = ({ refreshProperties }) => {
           </div>
 
           {/* Room Details */}
-          <div className="bg-white p-6 rounded-lg shadow-sm">
-            <h2 className="text-xl font-semibold mb-4 text-red-500">
+          <div className="bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300">
+            <h2 className="text-2xl font-bold mb-6 text-red-600 border-b-2 border-red-200 pb-2">
               Room Details
             </h2>
-            <div className="space-y-4">
+            <div className="space-y-5">
               <div>
-                <label className="block mb-1 text-gray-700">Bedrooms</label>
+                <label className="block mb-2 text-gray-800 font-semibold">
+                  Bedrooms
+                </label>
                 <input
                   type="number"
                   name="bedroom"
                   value={formData.bedroom}
                   onChange={handleInputChange}
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-red-200 focus:border-red-400"
+                  className="w-full p-3 border-2 rounded-lg focus:ring-2 focus:ring-red-300 focus:border-red-500 transition-all duration-300"
                   min="0"
                 />
               </div>
 
               <div>
-                <label className="block mb-1 text-gray-700">Bathrooms</label>
+                <label className="block mb-2 text-gray-800 font-semibold">
+                  Bathrooms
+                </label>
                 <input
                   type="number"
                   name="bathroom"
                   value={formData.bathroom}
                   onChange={handleInputChange}
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-red-200 focus:border-red-400"
+                  className="w-full p-3 border-2 rounded-lg focus:ring-2 focus:ring-red-300 focus:border-red-500 transition-all duration-300"
                   min="0"
                 />
               </div>
 
               <div>
-                <label className="block mb-1 text-gray-700">Kitchens</label>
+                <label className="block mb-2 text-gray-800 font-semibold">
+                  Kitchens
+                </label>
                 <input
                   type="number"
                   name="kitchen"
                   value={formData.kitchen}
                   onChange={handleInputChange}
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-red-200 focus:border-red-400"
+                  className="w-full p-3 border-2 rounded-lg focus:ring-2 focus:ring-red-300 focus:border-red-500 transition-all duration-300"
                   min="0"
                 />
               </div>
@@ -278,34 +294,34 @@ const Sell = ({ refreshProperties }) => {
           </div>
 
           {/* Additional Information */}
-          <div className="bg-white p-6 rounded-lg shadow-sm">
-            <h2 className="text-xl font-semibold mb-4 text-red-500">
+          <div className="bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300">
+            <h2 className="text-2xl font-bold mb-6 text-red-600 border-b-2 border-red-200 pb-2">
               Additional Information
             </h2>
-            <div className="space-y-4">
+            <div className="space-y-5">
               <div>
-                <label className="block mb-1 text-gray-700">
+                <label className="block mb-2 text-gray-800 font-semibold">
                   Full Address*
                 </label>
                 <textarea
                   name="address"
                   value={formData.address}
                   onChange={handleInputChange}
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-red-200 focus:border-red-400"
+                  className="w-full p-3 border-2 rounded-lg focus:ring-2 focus:ring-red-300 focus:border-red-500 transition-all duration-300"
                   rows="2"
                   required
                 />
               </div>
 
               <div>
-                <label className="block mb-1 text-gray-700">
+                <label className="block mb-2 text-gray-800 font-semibold">
                   Property Details
                 </label>
                 <textarea
                   name="details"
                   value={formData.details}
                   onChange={handleInputChange}
-                  className="w-full p-2 border rounded focus:ring-2 focus:ring-red-200 focus:border-red-400"
+                  className="w-full p-3 border-2 rounded-lg focus:ring-2 focus:ring-red-300 focus:border-red-500 transition-all duration-300"
                   rows="3"
                 />
               </div>
@@ -314,50 +330,54 @@ const Sell = ({ refreshProperties }) => {
         </div>
 
         {/* Additional Sections */}
-        <div className="bg-white p-6 rounded-lg shadow-sm space-y-4">
-          <h2 className="text-xl font-semibold mb-4 text-red-500">
+        <div className="bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 space-y-5">
+          <h2 className="text-2xl font-bold mb-6 text-red-600 border-b-2 border-red-200 pb-2">
             Property Specifications
           </h2>
 
           <div>
-            <label className="block mb-1 text-gray-700">Dimensions</label>
+            <label className="block mb-2 text-gray-800 font-semibold">
+              Dimensions
+            </label>
             <input
               type="text"
               name="dimensions"
               value={formData.dimensions}
               onChange={handleInputChange}
-              className="w-full p-2 border rounded focus:ring-2 focus:ring-red-200 focus:border-red-400"
+              className="w-full p-3 border-2 rounded-lg focus:ring-2 focus:ring-red-300 focus:border-red-500 transition-all duration-300"
               placeholder="e.g., 30x40"
             />
           </div>
 
           <div>
-            <label className="block mb-1 text-gray-700">Overview</label>
+            <label className="block mb-2 text-gray-800 font-semibold">
+              Overview
+            </label>
             <textarea
               name="overview"
               value={formData.overview}
               onChange={handleInputChange}
-              className="w-full p-2 border rounded focus:ring-2 focus:ring-red-200 focus:border-red-400"
+              className="w-full p-3 border-2 rounded-lg focus:ring-2 focus:ring-red-300 focus:border-red-500 transition-all duration-300"
               rows="3"
             />
           </div>
 
           <div>
-            <label className="block mb-1 text-gray-700">
+            <label className="block mb-2 text-gray-800 font-semibold">
               Amenities (comma-separated)
             </label>
             <textarea
               name="amenities"
               value={formData.amenities.join(", ")}
               onChange={handleAmenitiesChange}
-              className="w-full p-2 border rounded focus:ring-2 focus:ring-red-200 focus:border-red-400"
+              className="w-full p-3 border-2 rounded-lg focus:ring-2 focus:ring-red-300 focus:border-red-500 transition-all duration-300"
               rows="2"
               placeholder="e.g., Swimming Pool, Gym, Garden"
             />
           </div>
 
           <div>
-            <label className="block mb-1 text-gray-700">
+            <label className="block mb-2 text-gray-800 font-semibold">
               Location Map Link
             </label>
             <input
@@ -365,23 +385,23 @@ const Sell = ({ refreshProperties }) => {
               name="locationMap"
               value={formData.locationMap}
               onChange={handleInputChange}
-              className="w-full p-2 border rounded focus:ring-2 focus:ring-red-200 focus:border-red-400"
+              className="w-full p-3 border-2 rounded-lg focus:ring-2 focus:ring-red-300 focus:border-red-500 transition-all duration-300"
               placeholder="Google Maps URL"
             />
           </div>
         </div>
 
         {/* Image Upload Section */}
-        <div className="bg-white p-6 rounded-lg shadow-sm">
-          <h2 className="text-xl font-semibold mb-4 text-red-500">
+        <div className="bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300">
+          <h2 className="text-2xl font-bold mb-6 text-red-600 border-b-2 border-red-200 pb-2">
             Property Images
           </h2>
-          <div className="space-y-4">
+          <div className="space-y-5">
             <input
               type="file"
               multiple
               onChange={handleImageUpload}
-              className="w-full p-2 border rounded focus:ring-2 focus:ring-red-200 focus:border-red-400"
+              className="w-full p-3 border-2 rounded-lg focus:ring-2 focus:ring-red-300 focus:border-red-500 transition-all duration-300"
               accept="image/*"
             />
 
@@ -391,7 +411,7 @@ const Sell = ({ refreshProperties }) => {
                   key={index}
                   src={url}
                   alt={`Property ${index + 1}`}
-                  className="w-24 h-24 object-cover rounded shadow-sm"
+                  className="w-32 h-32 object-cover rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
                 />
               ))}
             </div>
@@ -401,7 +421,7 @@ const Sell = ({ refreshProperties }) => {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-red-500 text-white px-6 py-3 rounded-lg hover:bg-red-600 disabled:bg-gray-400 transition duration-300 ease-in-out transform hover:-translate-y-1"
+          className="w-full bg-gradient-to-r from-red-500 to-red-600 text-white px-8 py-4 rounded-xl font-bold text-lg hover:from-red-600 hover:to-red-700 disabled:from-gray-400 disabled:to-gray-500 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg"
         >
           {loading ? "Submitting..." : "List Property"}
         </button>
