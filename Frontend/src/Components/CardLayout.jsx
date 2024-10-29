@@ -1,31 +1,36 @@
 import React, { useState, useEffect, useRef } from "react";
-import { PropertyData } from "../Constants/Constants";
+
 import Card from "./Card";
 import Filters from "./Filters";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { LoaderCircle } from "lucide-react";
 
-const CardLayout = () => {
-  const [filteredProperties, setFilteredProperties] = useState(PropertyData);
+const CardLayout = ({ initialProperties }) => {
+  const [filteredProperties, setFilteredProperties] =
+    useState(initialProperties);
   const [isFiltering, setIsFiltering] = useState(false);
   const containerRef = useRef(null);
   const loaderRef = useRef(null);
   const cardRefs = useRef([]);
 
   useEffect(() => {
-    PropertyData.forEach((property) => {
+    setFilteredProperties(initialProperties);
+  }, [initialProperties]);
+
+  useEffect(() => {
+    initialProperties.forEach((property) => {
       property.images.forEach((imageUrl) => {
         const img = new Image();
 
         img.src = imageUrl;
       });
     });
-  }, []);
+  }, [initialProperties]);
 
   const applyFilters = (filters) => {
     setIsFiltering(true);
-    let result = PropertyData;
+    let result = initialProperties;
 
     if (filters.search) {
       const searchTerm = filters.search.toLowerCase();
@@ -122,7 +127,7 @@ const CardLayout = () => {
   return (
     <>
       <div className="filter-container">
-        <Filters props={PropertyData} onFilterChange={applyFilters} />
+        <Filters props={initialProperties} onFilterChange={applyFilters} />
       </div>
       {!isFiltering && (
         <div

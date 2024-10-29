@@ -12,10 +12,10 @@ import {
   Home,
   ChefHat,
   Maximize,
+  ShoppingCart,
 } from "lucide-react";
-import { PropertyData } from "../Constants/Constants";
 
-const PropertyDetails = () => {
+const PropertyDetails = ({ properties }) => {
   const { id } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
@@ -24,19 +24,21 @@ const PropertyDetails = () => {
   const [activeTab, setActiveTab] = useState("overview");
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [showPhotos, setShowPhotos] = useState(true);
+  const [isInCart, setIsInCart] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (location.state && location.state.propertyData) {
       setPropertyData(location.state.propertyData);
     } else {
-      const property = PropertyData.find((prop) => prop.id === parseInt(id));
+      const property = properties.find((p) => p._id === id);
       if (property) {
         setPropertyData(property);
       } else {
         navigate("/buy");
       }
     }
-  }, [id, location, navigate]);
+  }, [id, location, navigate, properties]);
 
   if (!propertyData) {
     return <div>Loading...</div>;
@@ -104,6 +106,27 @@ const PropertyDetails = () => {
 
   const toggleFullScreen = () => {
     setIsFullScreen(!isFullScreen);
+  };
+
+  const handleAddToCart = async () => {
+    const userData = JSON.parse(localStorage.getItem("userData"));
+    if (!userData) {
+      navigate("/login");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      await axios.post("http://localhost:4000/api/properties/cart/add", {
+        userId: userData._id,
+        propertyId: propertyData._id,
+      });
+      setIsInCart(true);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+      setLoading(false);
+    }
   };
 
   return (
@@ -250,6 +273,18 @@ const PropertyDetails = () => {
                 <div className="flex flex-col sm:flex-row justify-center gap-4 mb-4">
                   <button className="px-6 py-3 bg-white text-gray-800 border-2 border-gray-200 rounded-full hover:bg-gray-100 hover:border-gray-300 transition-colors duration-300">
                     Contact Agent
+                  </button>
+                  <button
+                    onClick={handleAddToCart}
+                    disabled={loading || isInCart}
+                    className={`px-8 py-3 flex items-center justify-center gap-2 rounded-full transition-colors duration-300 ${
+                      isInCart
+                        ? "bg-green-500 hover:bg-green-600"
+                        : "bg-red-500 hover:bg-red-600"
+                    } text-white`}
+                  >
+                    <ShoppingCart size={20} />
+                    {isInCart ? "In Cart" : "Add to Cart"}
                   </button>
                   <button className="px-8 py-3 bg-red-500 text-white border rounded-full hover:bg-red-600 transition-colors duration-300">
                     {saleOrRent === "rent" ? "Rent Now" : "Buy Now"}

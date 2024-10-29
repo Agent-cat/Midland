@@ -2,6 +2,7 @@ const asyncHandler = require("express-async-handler");
 const User = require("../Models/user.model.js");
 const generateToken = require("../config/generateToken.js");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 const signup = asyncHandler(async (req, res) => {
   const { username, email, password, phno, role, isLoggedIn, profilePicture } =
@@ -34,12 +35,18 @@ const signup = asyncHandler(async (req, res) => {
   });
 
   if (user) {
+    const token = jwt.sign(
+      { id: user._id, email: user.email, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: "30d" }
+    );
+
     res.status(201).json({
       _id: user._id,
       name: user.username,
       email: user.email,
       pic: user.profilePicture,
-      token: generateToken(user._id),
+      token: token,
     });
   } else {
     res.status(400).json({ error: "Failed to create user" });
@@ -49,7 +56,14 @@ const signup = asyncHandler(async (req, res) => {
 const signin = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
+
   if (user && (await bcrypt.compare(password, user.password))) {
+    const token = jwt.sign(
+      { id: user._id, email: user.email, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: "30d" }
+    );
+
     res.status(200).json({
       _id: user._id,
       name: user.username,
@@ -57,7 +71,7 @@ const signin = asyncHandler(async (req, res) => {
       pic: user.profilePicture,
       role: user.role,
       viewedProperties: user.viewedProperties,
-      token: generateToken(user._id),
+      token: token,
     });
   } else {
     res.status(401).json({ error: "Invalid email or password" });

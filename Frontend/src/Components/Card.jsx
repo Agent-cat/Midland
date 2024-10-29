@@ -6,7 +6,7 @@ const Card = ({ props }) => {
   const navigate = useNavigate();
 
   const handleCardClick = () => {
-    navigate(`/property/${props.id}`, { state: { propertyData: props } });
+    navigate(`/property/${props._id}`, { state: { propertyData: props } });
   };
 
   const { name, price, saleOrRent, images, address, bedroom, kitchen, sqft } =

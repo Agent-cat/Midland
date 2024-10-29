@@ -47,23 +47,34 @@ const Filters = ({ props, onFilterChange }) => {
       prev.filter((filter) => filter.key !== filterKey)
     );
 
-    // Animate remaining filters
-    gsap.to(appliedFiltersRef.current.children, {
-      opacity: 0.5,
-      scale: 0.95,
-      duration: 0.3,
-      stagger: 0.05,
-      ease: "power2.out",
-      onComplete: () => {
-        gsap.to(appliedFiltersRef.current.children, {
-          opacity: 1,
-          scale: 1,
-          duration: 0.3,
-          stagger: 0.05,
-          ease: "power2.out",
-        });
-      },
-    });
+    // Only animate if the ref and its children exist
+    if (
+      appliedFiltersRef.current &&
+      appliedFiltersRef.current.children.length > 0
+    ) {
+      gsap.to(appliedFiltersRef.current.children, {
+        opacity: 0.5,
+        scale: 0.95,
+        duration: 0.3,
+        stagger: 0.05,
+        ease: "power2.out",
+        onComplete: () => {
+          // Check again in case elements were removed during animation
+          if (
+            appliedFiltersRef.current &&
+            appliedFiltersRef.current.children.length > 0
+          ) {
+            gsap.to(appliedFiltersRef.current.children, {
+              opacity: 1,
+              scale: 1,
+              duration: 0.3,
+              stagger: 0.05,
+              ease: "power2.out",
+            });
+          }
+        },
+      });
+    }
   };
 
   useEffect(() => {
@@ -71,7 +82,12 @@ const Filters = ({ props, onFilterChange }) => {
   }, [filters]);
 
   useGSAP(() => {
-    if (isFilterOpen && window.innerWidth < 768) {
+    if (
+      isFilterOpen &&
+      filterRef.current &&
+      filterRef.current.children.length > 0 &&
+      window.innerWidth < 768
+    ) {
       gsap.from(filterRef.current.children, {
         opacity: 0,
         y: -20,
@@ -83,7 +99,10 @@ const Filters = ({ props, onFilterChange }) => {
   }, [isFilterOpen]);
 
   useGSAP(() => {
-    if (appliedFiltersRef.current) {
+    if (
+      appliedFiltersRef.current &&
+      appliedFiltersRef.current.children.length > 0
+    ) {
       gsap.from(appliedFiltersRef.current.children, {
         opacity: 0,
         scale: 0.8,
@@ -133,9 +152,11 @@ const Filters = ({ props, onFilterChange }) => {
               onChange={handleFilterChange}
               className="p-2 border rounded-md w-full md:w-auto"
             >
-              <option value="">Select Location</option>
-              {locations.map((loc) => (
-                <option key={loc} value={loc}>
+              <option value="" key="default-location">
+                Select Location
+              </option>
+              {locations.map((loc, index) => (
+                <option key={`location-${index}-${loc}`} value={loc}>
                   {loc}
                 </option>
               ))}
@@ -148,9 +169,11 @@ const Filters = ({ props, onFilterChange }) => {
               onChange={handleFilterChange}
               className="p-2 border rounded-md w-full md:w-auto"
             >
-              <option value="">Select BHK</option>
-              {bhkOptions.map((bhk) => (
-                <option key={bhk} value={bhk}>
+              <option value="" key="default-bhk">
+                Select BHK
+              </option>
+              {bhkOptions.map((bhk, index) => (
+                <option key={`bhk-${index}-${bhk}`} value={bhk}>
                   {bhk} BHK
                 </option>
               ))}
@@ -163,9 +186,11 @@ const Filters = ({ props, onFilterChange }) => {
               onChange={handleFilterChange}
               className="p-2 border rounded-md w-full md:w-auto"
             >
-              <option value="">Select Sq.ft</option>
-              {sqftOptions.map((sqft) => (
-                <option key={sqft} value={sqft}>
+              <option value="" key="default-sqft">
+                Select Sq.ft
+              </option>
+              {sqftOptions.map((sqft, index) => (
+                <option key={`sqft-${index}-${sqft}`} value={sqft}>
                   {sqft} sq.ft
                 </option>
               ))}
@@ -178,9 +203,11 @@ const Filters = ({ props, onFilterChange }) => {
               onChange={handleFilterChange}
               className="p-2 border rounded-md w-full md:w-auto"
             >
-              <option value="">Select Type</option>
-              {typeOptions.map((type) => (
-                <option key={type} value={type}>
+              <option value="" key="default-type">
+                Select Type
+              </option>
+              {typeOptions.map((type, index) => (
+                <option key={`type-${index}-${type}`} value={type}>
                   {type}
                 </option>
               ))}
@@ -228,9 +255,11 @@ const Filters = ({ props, onFilterChange }) => {
                 onChange={handleFilterChange}
                 className="p-2 border rounded-md w-full"
               >
-                <option value="">Select Location</option>
-                {locations.map((loc) => (
-                  <option key={loc} value={loc}>
+                <option value="" key="mobile-default-location">
+                  Select Location
+                </option>
+                {locations.map((loc, index) => (
+                  <option key={`mobile-location-${index}-${loc}`} value={loc}>
                     {loc}
                   </option>
                 ))}
@@ -247,9 +276,11 @@ const Filters = ({ props, onFilterChange }) => {
                 onChange={handleFilterChange}
                 className="p-2 border rounded-md w-full"
               >
-                <option value="">Select BHK</option>
-                {bhkOptions.map((bhk) => (
-                  <option key={bhk} value={bhk}>
+                <option value="" key="mobile-default-bhk">
+                  Select BHK
+                </option>
+                {bhkOptions.map((bhk, index) => (
+                  <option key={`mobile-bhk-${index}-${bhk}`} value={bhk}>
                     {bhk} BHK
                   </option>
                 ))}
@@ -266,9 +297,11 @@ const Filters = ({ props, onFilterChange }) => {
                 onChange={handleFilterChange}
                 className="p-2 border rounded-md w-full"
               >
-                <option value="">Select Sq.ft</option>
-                {sqftOptions.map((sqft) => (
-                  <option key={sqft} value={sqft}>
+                <option value="" key="mobile-default-sqft">
+                  Select Sq.ft
+                </option>
+                {sqftOptions.map((sqft, index) => (
+                  <option key={`mobile-sqft-${index}-${sqft}`} value={sqft}>
                     {sqft} sq.ft
                   </option>
                 ))}
@@ -285,9 +318,11 @@ const Filters = ({ props, onFilterChange }) => {
                 onChange={handleFilterChange}
                 className="p-2 border rounded-md w-full"
               >
-                <option value="">Select Type</option>
-                {typeOptions.map((type) => (
-                  <option key={type} value={type}>
+                <option value="" key="mobile-default-type">
+                  Select Type
+                </option>
+                {typeOptions.map((type, index) => (
+                  <option key={`mobile-type-${index}-${type}`} value={type}>
                     {type}
                   </option>
                 ))}
@@ -329,9 +364,9 @@ const Filters = ({ props, onFilterChange }) => {
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="flex flex-wrap gap-2 mt-4"
           >
-            {appliedFilters.map((filter) => (
+            {appliedFilters.map((filter, index) => (
               <span
-                key={filter.key}
+                key={`filter-${index}-${filter.key}`}
                 className="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm flex items-center shadow-sm"
               >
                 {filter.key}: {filter.value}
