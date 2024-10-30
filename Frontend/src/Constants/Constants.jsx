@@ -15,6 +15,10 @@ export const Navlinks = [
     name: "Sell",
     link: "/sell",
   },
+  {
+    name: "Pricing",
+    link: "/pricing",
+  },
 
   {
     name: "Contact Us",

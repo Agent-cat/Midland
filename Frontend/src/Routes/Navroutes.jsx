@@ -7,7 +7,7 @@ import Rent from "../Pages/Rent";
 import Contactus from "../Pages/Contactus";
 import PropertyDetails from "../Pages/PropertyDetails";
 import Sell from "../Pages/Sell";
-
+import Pricing from "../Pages/Pricing";
 const Navroutes = ({
   data,
   setData,
@@ -36,6 +36,7 @@ const Navroutes = ({
         path="/property/:id"
         element={<PropertyDetails properties={properties} />}
       />
+      <Route path="/pricing" element={<Pricing />} />
     </Routes>
   );
 };

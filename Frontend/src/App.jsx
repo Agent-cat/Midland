@@ -3,6 +3,7 @@ import Lenis from "@studio-freight/lenis";
 import Navbar from "./Components/Navbar";
 import Navroutes from "./Routes/Navroutes";
 import axios from "axios";
+import { HelmetProvider } from "react-helmet-async";
 
 const App = () => {
   const [data, setData] = useState(null);
@@ -32,7 +33,7 @@ const App = () => {
       gestureDirection: "vertical",
       smooth: true,
       mouseMultiplier: 1,
-      smoothTouch: false,
+      smoothTouch: true,
       touchMultiplier: 2,
       infinite: false,
     });
@@ -50,22 +51,24 @@ const App = () => {
   }, []);
 
   return (
-    <div className="select-none font-['Onest',sans-serif]">
-      <Navbar
-        data={data}
-        setData={setData}
-        loggedIn={loggedIn}
-        setLoggedIn={setLoggedIn}
-      />
-      <Navroutes
-        data={data}
-        setData={setData}
-        loggedIn={loggedIn}
-        properties={properties}
-        loading={loading}
-        refreshProperties={fetchProperties}
-      />
-    </div>
+    <HelmetProvider>
+      <div className="select-none font-['Onest',sans-serif]">
+        <Navbar
+          data={data}
+          setData={setData}
+          loggedIn={loggedIn}
+          setLoggedIn={setLoggedIn}
+        />
+        <Navroutes
+          data={data}
+          setData={setData}
+          loggedIn={loggedIn}
+          properties={properties}
+          loading={loading}
+          refreshProperties={fetchProperties}
+        />
+      </div>
+    </HelmetProvider>
   );
 };
 
